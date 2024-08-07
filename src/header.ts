@@ -4,9 +4,7 @@ export function getHeaderTemplate() {
       <header>
         <h1>Start Here</h1>
         <nav>
-          <a href="#community">Community</a> | 
-          <a href="#login">Login</a> | 
-          <a href="#signup">Sign Up</a>
+          <a href="#community">Community</a>
         </nav>
       </header>
     `;
