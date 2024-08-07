@@ -1,3 +1,3 @@
-export default {
-  base: '/roadmap.sober/'
-}
+export default ({ mode }) => ({
+  base: mode === 'production' ? '/roadmap.sober/' : '/'
+})
