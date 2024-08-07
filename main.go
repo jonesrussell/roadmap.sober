@@ -1,7 +1,7 @@
 package main
 
 import (
-	"fullstackdev42/sober/handlers"
+	"fullstackdev42/sober/server"
 	"fullstackdev42/sober/services"
 	"log"
 	"net/http"
@@ -9,17 +9,9 @@ import (
 
 func main() {
 	pageService := services.PageService{}
-	handler := handlers.DefaultHandler{
-		PageService: pageService,
-	}
+	srv := server.NewServer(pageService)
 
-	http.Handle("/", &handler)
-
-	// Serve static files
-	fs := http.FileServer(http.Dir("public"))
-	http.Handle("/static/", http.StripPrefix("/static/", fs))
-
-	err := http.ListenAndServe(":8080", nil)
+	err := http.ListenAndServe(":8080", srv.Handler)
 	if err != nil {
 		log.Fatal(err)
 	}
