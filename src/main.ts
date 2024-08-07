@@ -1,14 +1,11 @@
+// src/main.ts
+import { getHeaderTemplate } from './header.ts';
+import { getFooterTemplate } from './footer.ts';
+import './roadmap.sober.ts';
 import './style.css';
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
-  <header>
-    <h1>Start Here</h1>
-    <nav>
-      <a href="#community">Community</a> | 
-      <a href="#login">Login</a> | 
-      <a href="#signup">Sign Up</a>
-    </nav>
-  </header>
+  ${getHeaderTemplate()}
   <main>
     <h2>Sobriety Roadmaps</h2>
     <p>Are you just starting your journey to sobriety? Here are some beginner friendly roadmaps you should start with.</p>
@@ -26,26 +23,5 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
       <li>Take it one day at a time: Don't worry about the future, just focus on staying sober today.</li>
     </ul>
   </main>
-<footer>
-    <div class="footer-row">
-      <p>© 2024 Sober Journey</p>
-    </div>
-    <div class="footer-row">
-      <div class="footer-column">
-        <h4>About</h4>
-        <ul>
-          <li><a href="#mission">Our Mission</a></li>
-          <li><a href="#team">Our Team</a></li>
-          <li><a href="#contact">Contact Us</a></li>
-        </ul>
-      </div>
-      <div class="footer-column">
-        <h4>Resources</h4>
-        <ul>
-          <li><a href="#roadmaps">Sobriety Roadmaps</a></li>
-          <li><a href="#tips">Tips for Beginners</a></li>
-          <li><a href="#community">Join the Community</a></li>
-        </ul>
-      </div>
-    </div>
-  </footer>`
+  ${getFooterTemplate()}
+`;
