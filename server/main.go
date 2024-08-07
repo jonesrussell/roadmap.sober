@@ -3,6 +3,7 @@ package main
 import (
 	"fullstackdev42/sober/handlers"
 	"fullstackdev42/sober/services"
+	"log"
 	"net/http"
 )
 
@@ -19,5 +20,8 @@ func main() {
 	http.Handle("/style.css", fs)
 	http.Handle("/sober.svg", fs)
 
-	http.ListenAndServe(":8080", nil)
+	err := http.ListenAndServe(":8080", nil)
+	if err != nil {
+		log.Fatal(err)
+	}
 }

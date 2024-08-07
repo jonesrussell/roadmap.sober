@@ -26,7 +26,10 @@ func (h *DefaultHandler) Home(w http.ResponseWriter, r *http.Request) {
 		Title: "Home",
 	}
 	tmpl := template.Must(template.ParseFiles("templates/base.html", "templates/index.html", "templates/header.html", "templates/footer.html"))
-	tmpl.ExecuteTemplate(w, "base.html", data)
+	if err := tmpl.ExecuteTemplate(w, "base.html", data); err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
 }
 
 func (h *DefaultHandler) Community(w http.ResponseWriter, r *http.Request) {
@@ -34,5 +37,8 @@ func (h *DefaultHandler) Community(w http.ResponseWriter, r *http.Request) {
 		Title: "Community",
 	}
 	tmpl := template.Must(template.ParseFiles("templates/base.html", "templates/community.html", "templates/header.html", "templates/footer.html"))
-	tmpl.ExecuteTemplate(w, "base.html", data)
+	if err := tmpl.ExecuteTemplate(w, "base.html", data); err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
 }
