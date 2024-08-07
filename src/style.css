@@ -94,3 +94,20 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+.footer-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+.footer-column h4 {
+  margin-bottom: 10px;
+}
+.footer-column ul {
+  list-style: none;
+  padding: 0;
+}
+.footer-column ul li a {
+  color: white;
+  text-decoration: none;
+}
