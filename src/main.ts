@@ -1,3 +1,5 @@
+import './style.css';
+
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <header>
     <h1>Start Here</h1>
