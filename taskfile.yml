@@ -6,6 +6,11 @@ tasks:
       - go build -v -o bin/sober-roadmap ./server/main.go
     desc: Build the sober-roadmap binary
 
+  run: # run the server
+    cmds:
+      - go run ./server/main.go
+    desc: Run the server
+
   test:
     cmds:
       - go test -json -v ./... 2>&1 | tee /tmp/gotest.log | gotestfmt
