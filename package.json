@@ -10,7 +10,7 @@
   },
   "devDependencies": {
     "typescript": "^5.2.2",
-    "vite": "^5.3.4"
+    "vite": "^5.3.5"
   },
   "dependencies": {
     "htmx.org": "^2.0.1"
