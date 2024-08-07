@@ -17,8 +17,7 @@ func main() {
 
 	// Serve static files
 	fs := http.FileServer(http.Dir("public"))
-	http.Handle("/style.css", fs)
-	http.Handle("/sober.svg", fs)
+	http.Handle("/static/", http.StripPrefix("/static/", fs))
 
 	err := http.ListenAndServe(":8080", nil)
 	if err != nil {
