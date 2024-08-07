@@ -1,30 +1,18 @@
 package main
 
 import (
+	"fullstackdev42/sober/handlers"
+	"fullstackdev42/sober/services"
 	"net/http"
-	"text/template"
 )
 
-type PageData struct {
-	Title string
-}
-
 func main() {
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		data := PageData{
-			Title: "Home",
-		}
-		tmpl := template.Must(template.ParseFiles("src/base.html", "public/index.html", "src/header.html", "src/footer.html"))
-		tmpl.ExecuteTemplate(w, "base.html", data)
-	})
+	pageService := services.PageService{}
+	handler := handlers.DefaultHandler{
+		PageService: pageService,
+	}
 
-	http.HandleFunc("/community", func(w http.ResponseWriter, r *http.Request) {
-		data := PageData{
-			Title: "Community",
-		}
-		tmpl := template.Must(template.ParseFiles("src/base.html", "public/community.html", "src/header.html", "src/footer.html"))
-		tmpl.ExecuteTemplate(w, "base.html", data)
-	})
+	http.Handle("/", &handler)
 
 	// Serve static files
 	fs := http.FileServer(http.Dir("public"))
