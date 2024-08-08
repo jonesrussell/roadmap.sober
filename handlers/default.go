@@ -31,14 +31,6 @@ func (h *DefaultHandler) RenderPage(c echo.Context, pageName string) error {
 	return page.Render(ctx, writer)
 }
 
-func (h *DefaultHandler) Home(c echo.Context) error {
-	return h.RenderPage(c, "home")
-}
-
-func (h *DefaultHandler) Community(c echo.Context) error {
-	return h.RenderPage(c, "community")
-}
-
 func (h *DefaultHandler) Unsafe(html string) templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, w io.Writer) (err error) {
 		_, err = io.WriteString(w, html)
