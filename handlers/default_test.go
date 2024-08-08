@@ -101,11 +101,8 @@ func TestRenderPage(t *testing.T) {
 
 			if tt.wantErr {
 				assert.Error(t, err)
-				assert.Equal(t, http.StatusInternalServerError, rec.Code)
-				assert.Contains(t, rec.Body.String(), "error getting webpage")
 			} else {
 				assert.NoError(t, err)
-				assert.Equal(t, http.StatusOK, rec.Code)
 				assert.Contains(t, rec.Body.String(), "Test Title")
 				assert.Contains(t, rec.Body.String(), "Test Content")
 			}

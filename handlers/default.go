@@ -3,7 +3,6 @@ package handlers
 import (
 	"fullstackdev42/sober/components"
 	"fullstackdev42/sober/services"
-	"net/http"
 
 	"github.com/labstack/echo/v4"
 )
@@ -15,9 +14,18 @@ type DefaultHandler struct {
 func (h *DefaultHandler) RenderPage(c echo.Context, pageName string) error {
 	data, err := h.PageService.GetWebpage(pageName)
 	if err != nil {
-		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+		return err
 	}
-	return components.ContentPage(data.Title, components.Unsafe(data.Content)).Render(c.Request().Context(), c.Response().Writer)
+
+	// Create a ContentPage with the title and content
+	page := components.ContentPage(data.Title, components.Unsafe(data.Content))
+
+	// Get the request context and response writer
+	ctx := c.Request().Context()
+	writer := c.Response().Writer
+
+	// Render the page
+	return page.Render(ctx, writer)
 }
 
 func (h *DefaultHandler) Home(c echo.Context) error {
