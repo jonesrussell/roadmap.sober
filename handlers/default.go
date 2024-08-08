@@ -12,18 +12,18 @@ type DefaultHandler struct {
 	PageService services.PageService
 }
 
-func (h *DefaultHandler) Home(c echo.Context) error {
-	data, err := h.PageService.GetWebpage("home")
+func (h *DefaultHandler) RenderPage(c echo.Context, pageName string) error {
+	data, err := h.PageService.GetWebpage(pageName)
 	if err != nil {
 		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
 	return components.ContentPage(data.Title, components.Unsafe(data.Content)).Render(c.Request().Context(), c.Response().Writer)
 }
 
+func (h *DefaultHandler) Home(c echo.Context) error {
+	return h.RenderPage(c, "home")
+}
+
 func (h *DefaultHandler) Community(c echo.Context) error {
-	data, err := h.PageService.GetWebpage("community")
-	if err != nil {
-		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
-	}
-	return components.ContentPage(data.Title, components.Unsafe(data.Content)).Render(c.Request().Context(), c.Response().Writer)
+	return h.RenderPage(c, "community")
 }

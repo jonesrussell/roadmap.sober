@@ -63,3 +63,52 @@ func TestDefaultHandler(t *testing.T) {
 		})
 	}
 }
+
+func TestRenderPage(t *testing.T) {
+	tests := []struct {
+		name    string
+		page    string
+		wantErr bool
+	}{
+		{
+			name:    "Home Page",
+			page:    "home",
+			wantErr: false,
+		},
+		{
+			name:    "Community Page",
+			page:    "community",
+			wantErr: false,
+		},
+		{
+			name:    "Error Case",
+			page:    "error",
+			wantErr: true,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			e := echo.New()
+			req := httptest.NewRequest(http.MethodGet, "/", nil)
+			rec := httptest.NewRecorder()
+			c := e.NewContext(req, rec)
+			h := &handlers.DefaultHandler{
+				PageService: &MockPageService{},
+			}
+
+			err := h.RenderPage(c, tt.page)
+
+			if tt.wantErr {
+				assert.Error(t, err)
+				assert.Equal(t, http.StatusInternalServerError, rec.Code)
+				assert.Contains(t, rec.Body.String(), "error getting webpage")
+			} else {
+				assert.NoError(t, err)
+				assert.Equal(t, http.StatusOK, rec.Code)
+				assert.Contains(t, rec.Body.String(), "Test Title")
+				assert.Contains(t, rec.Body.String(), "Test Content")
+			}
+		})
+	}
+}
