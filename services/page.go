@@ -33,10 +33,6 @@ func (ps *PageServiceImpl) GetWebpage(pageName string) (Webpage, error) {
 	// Read the content from an HTML file...
 	content, err := ps.FileReader.ReadFile("./content/" + pageName + ".html")
 	if err != nil {
-		// Handle error...
-		if os.IsNotExist(err) {
-			return Webpage{}, err
-		}
 		return Webpage{}, err
 	}
 
