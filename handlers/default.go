@@ -5,6 +5,7 @@ import (
 	"fullstackdev42/sober/components"
 	"fullstackdev42/sober/services"
 	"io"
+	"net/http"
 
 	"github.com/a-h/templ"
 	"github.com/labstack/echo/v4"
@@ -23,12 +24,15 @@ func (h *DefaultHandler) RenderPage(c echo.Context, pageName string) error {
 	// Create a ContentPage with the title and content
 	page := components.ContentPage(data.Title, h.Unsafe(data.Content))
 
-	// Get the request context and response writer
-	ctx := c.Request().Context()
-	writer := c.Response().Writer
+	// Render the page into a string
+	buf := templ.GetBuffer()
+	defer templ.ReleaseBuffer(buf)
+	if err := page.Render(c.Request().Context(), buf); err != nil {
+		return err
+	}
 
-	// Render the page
-	return page.Render(ctx, writer)
+	// Send the HTTP response
+	return c.HTML(http.StatusOK, buf.String())
 }
 
 func (h *DefaultHandler) Unsafe(html string) templ.Component {
