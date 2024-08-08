@@ -13,15 +13,25 @@ type PageService interface {
 	GetWebpage(pageName string) (Webpage, error)
 }
 
+type FileReader interface {
+	ReadFile(filename string) ([]byte, error)
+}
+
+type OSFileReader struct{}
+
+func (osfr *OSFileReader) ReadFile(filename string) ([]byte, error) {
+	return os.ReadFile(filename)
+}
+
 type PageServiceImpl struct {
-	// Add your dependencies here...
+	FileReader FileReader
 }
 
 var _ PageService = &PageServiceImpl{}
 
 func (ps *PageServiceImpl) GetWebpage(pageName string) (Webpage, error) {
 	// Read the content from an HTML file...
-	content, err := os.ReadFile("./content/" + pageName + ".html")
+	content, err := ps.FileReader.ReadFile("./content/" + pageName + ".html")
 	if err != nil {
 		// Handle error...
 		if os.IsNotExist(err) {
