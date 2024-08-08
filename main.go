@@ -7,7 +7,10 @@ import (
 )
 
 func main() {
-	pageService := &services.PageServiceImpl{}
+	fileReader := &services.OSFileReader{}
+	pageService := &services.PageServiceImpl{
+		FileReader: fileReader,
+	}
 	srv := server.NewServer(pageService)
 
 	// Start server
