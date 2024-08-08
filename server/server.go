@@ -3,25 +3,29 @@ package server
 import (
 	"fullstackdev42/sober/handlers"
 	"fullstackdev42/sober/services"
-	"net/http"
+
+	"github.com/labstack/echo/v4"
 )
 
 type Server struct {
-	Handler http.Handler
+	Echo *echo.Echo
 }
 
-func NewServer(pageService services.PageService) *Server { // Add pageService as a parameter
+func NewServer(pageService services.PageService) *Server {
+	e := echo.New()
+
 	handler := &handlers.DefaultHandler{
 		PageService: pageService,
 	}
 
-	http.Handle("/", handler)
+	// Routes
+	e.GET("/", handler.Home)
+	e.GET("/community", handler.Community)
 
 	// Serve static files
-	fs := http.FileServer(http.Dir("public"))
-	http.Handle("/static/", http.StripPrefix("/static/", fs))
+	e.Static("/static", "public")
 
 	return &Server{
-		Handler: handler,
+		Echo: e,
 	}
 }

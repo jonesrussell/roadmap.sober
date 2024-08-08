@@ -4,15 +4,12 @@ import (
 	"fullstackdev42/sober/server"
 	"fullstackdev42/sober/services"
 	"log"
-	"net/http"
 )
 
 func main() {
-	pageService := services.PageService{}
-	srv := server.NewServer(pageService)
+	pageService := services.PageService{} // Create PageService here
+	srv := server.NewServer(pageService)  // Pass it to NewServer
 
-	err := http.ListenAndServe(":8080", srv.Handler)
-	if err != nil {
-		log.Fatal(err)
-	}
+	// Start server
+	log.Fatal(srv.Echo.Start(":8080"))
 }
