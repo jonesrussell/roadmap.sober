@@ -1,31 +1,36 @@
 package services
 
 import (
-	"io/ioutil"
 	"os"
 )
 
-type PageData struct {
+type Webpage struct {
 	Title   string
 	Content string
 }
 
-type PageService struct {
+type PageService interface {
+	GetWebpage(pageName string) (Webpage, error)
+}
+
+type PageServiceImpl struct {
 	// Add your dependencies here...
 }
 
-func (ps *PageService) GetPageData(pageName string) (PageData, error) {
+var _ PageService = &PageServiceImpl{}
+
+func (ps *PageServiceImpl) GetWebpage(pageName string) (Webpage, error) {
 	// Read the content from an HTML file...
-	content, err := ioutil.ReadFile("./content/" + pageName + ".html")
+	content, err := os.ReadFile("./content/" + pageName + ".html")
 	if err != nil {
 		// Handle error...
 		if os.IsNotExist(err) {
-			return PageData{}, err
+			return Webpage{}, err
 		}
-		return PageData{}, err
+		return Webpage{}, err
 	}
 
-	return PageData{
+	return Webpage{
 		Title:   pageName,
 		Content: string(content),
 	}, nil

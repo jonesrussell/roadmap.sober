@@ -7,8 +7,8 @@ import (
 )
 
 func main() {
-	pageService := services.PageService{} // Create PageService here
-	srv := server.NewServer(pageService)  // Pass it to NewServer
+	pageService := &services.PageServiceImpl{}
+	srv := server.NewServer(pageService)
 
 	// Start server
 	log.Fatal(srv.Echo.Start(":8080"))

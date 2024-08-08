@@ -13,17 +13,17 @@ type DefaultHandler struct {
 }
 
 func (h *DefaultHandler) Home(c echo.Context) error {
-	data, err := h.PageService.GetPageData("home")
+	data, err := h.PageService.GetWebpage("home")
 	if err != nil {
-		return c.String(http.StatusInternalServerError, err.Error())
+		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
 	return components.ContentPage(data.Title, components.Unsafe(data.Content)).Render(c.Request().Context(), c.Response().Writer)
 }
 
 func (h *DefaultHandler) Community(c echo.Context) error {
-	data, err := h.PageService.GetPageData("community")
+	data, err := h.PageService.GetWebpage("community")
 	if err != nil {
-		return c.String(http.StatusInternalServerError, err.Error())
+		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
 	return components.ContentPage(data.Title, components.Unsafe(data.Content)).Render(c.Request().Context(), c.Response().Writer)
 }
