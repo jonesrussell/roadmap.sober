@@ -1,43 +1,40 @@
 package services
 
 import (
-	"os"
+	"fullstackdev42/sober/content"
+
+	"github.com/a-h/templ"
+	"github.com/labstack/echo/v4"
 )
 
 type Webpage struct {
 	Title   string
-	Content string
+	Content templ.Component
 }
 
 type PageService interface {
 	GetWebpage(pageName string) (Webpage, error)
 }
 
-type FileReader interface {
-	ReadFile(filename string) ([]byte, error)
-}
-
-type OSFileReader struct{}
-
-func (osfr *OSFileReader) ReadFile(filename string) ([]byte, error) {
-	return os.ReadFile(filename)
-}
-
-type PageServiceImpl struct {
-	FileReader FileReader
-}
+type PageServiceImpl struct{}
 
 var _ PageService = &PageServiceImpl{}
 
 func (ps *PageServiceImpl) GetWebpage(pageName string) (Webpage, error) {
-	// Read the content from an HTML file...
-	content, err := ps.FileReader.ReadFile("./content/" + pageName + ".html")
-	if err != nil {
-		return Webpage{}, err
+	var page Webpage
+	switch pageName {
+	case "home":
+		page = Webpage{
+			Title:   "Home",
+			Content: content.Home(),
+		}
+	case "community":
+		page = Webpage{
+			Title:   "Community",
+			Content: content.Community(),
+		}
+	default:
+		return Webpage{}, echo.ErrNotFound
 	}
-
-	return Webpage{
-		Title:   pageName,
-		Content: string(content),
-	}, nil
+	return page, nil
 }

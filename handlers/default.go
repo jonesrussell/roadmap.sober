@@ -15,9 +15,9 @@ type DefaultHandler struct {
 	PageService services.PageService
 }
 
-func (h *DefaultHandler) RenderPage(c echo.Context, page templ.Component) error {
+func (h *DefaultHandler) RenderPage(c echo.Context, page templ.Component, title string) error {
 	// Wrap the page content with the ContentPage component
-	page = components.ContentPage("Page Title", page) // replace "Page Title" with the actual title
+	page = components.ContentPage(title, page)
 
 	// Render the page into a string
 	buf := templ.GetBuffer()
