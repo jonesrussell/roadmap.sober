@@ -1,10 +1,11 @@
 package handlers
 
 import (
-	"fullstackdev42/sober/services"
 	"net/http"
 	"net/http/httptest"
 	"testing"
+
+	"github.com/jonesrussell/sober/services"
 
 	"github.com/labstack/echo/v4"
 	"github.com/stretchr/testify/assert"

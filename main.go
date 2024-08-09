@@ -1,12 +1,13 @@
 package main
 
 import (
-	"fullstackdev42/sober/content"
-	"fullstackdev42/sober/handlers"
-	"fullstackdev42/sober/server"
-	"fullstackdev42/sober/services"
 	"log"
 	"net/http"
+
+	"github.com/jonesrussell/sober/content"
+	"github.com/jonesrussell/sober/handlers"
+	"github.com/jonesrussell/sober/server"
+	"github.com/jonesrussell/sober/services"
 
 	"github.com/labstack/echo/v4"
 )

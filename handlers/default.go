@@ -2,10 +2,11 @@ package handlers
 
 import (
 	"context"
-	"fullstackdev42/sober/components"
-	"fullstackdev42/sober/services"
 	"io"
 	"net/http"
+
+	"github.com/jonesrussell/sober/components"
+	"github.com/jonesrussell/sober/services"
 
 	"github.com/a-h/templ"
 	"github.com/labstack/echo/v4"

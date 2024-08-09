@@ -1,4 +1,4 @@
-module fullstackdev42/sober
+module github.com/jonesrussell/sober
 
 go 1.21
 

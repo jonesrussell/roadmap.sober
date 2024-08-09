@@ -1,7 +1,7 @@
 package services
 
 import (
-	"fullstackdev42/sober/content"
+	"github.com/jonesrussell/sober/content"
 
 	"github.com/a-h/templ"
 	"github.com/labstack/echo/v4"

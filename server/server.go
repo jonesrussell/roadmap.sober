@@ -1,8 +1,8 @@
 package server
 
 import (
-	"fullstackdev42/sober/handlers"
-	"fullstackdev42/sober/services"
+	"github.com/jonesrussell/sober/handlers"
+	"github.com/jonesrussell/sober/services"
 
 	"github.com/labstack/echo/v4"
 )
