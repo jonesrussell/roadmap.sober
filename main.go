@@ -12,7 +12,7 @@ import (
 )
 
 func main() {
-	pageService := &services.PageServiceImpl{}
+	pageService := services.NewPageService()
 	srv := server.NewServer(pageService)
 
 	// Set the NotFoundHandler to render your custom 404 page
