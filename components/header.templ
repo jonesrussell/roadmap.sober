@@ -1,11 +1,11 @@
 package components
 
-templ Header(title string) {
+templ Header(base string, title string) {
     <header>
         <div>Sobriety Roadmap</div>
         <nav>
-            <a href="/">Home</a> |
-            <a href="/community">Community</a>
+            <a href={ templ.URL(base + "/") }>Home</a> |
+            <a href={ templ.URL(base + "/community") }>Community</a>
         </nav>
     </header>
 }

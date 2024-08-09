@@ -11,7 +11,7 @@ templ ContentPage(base string, title string, body templ.Component) {
         <title>{ title } | Sobriety Roadmap</title>
     </head>
     <body>
-        @Header(title)
+        @Header(base, title)
         <main>
             @body
         </main>
