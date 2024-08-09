@@ -37,6 +37,8 @@ jobs:
       run: go build -v ./...
 
     - name: Generate Static Site
+      env:
+        BASE_PATH: /sober
       run: go run main.go -generate
 
     - name: Upload Artifacts

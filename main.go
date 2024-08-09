@@ -4,7 +4,7 @@ import (
 	"flag"
 	"log"
 	"net/http"
-	"os" // Import the os package
+	"os"
 
 	"github.com/jonesrussell/sober/content"
 	"github.com/jonesrussell/sober/handlers"
