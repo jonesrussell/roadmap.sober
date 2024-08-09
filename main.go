@@ -12,10 +12,7 @@ import (
 )
 
 func main() {
-	fileReader := &services.OSFileReader{}
-	pageService := &services.PageServiceImpl{
-		FileReader: fileReader,
-	}
+	pageService := &services.PageServiceImpl{}
 	srv := server.NewServer(pageService)
 
 	// Set the NotFoundHandler to render your custom 404 page
@@ -29,7 +26,7 @@ func main() {
 			handler := &handlers.DefaultHandler{
 				PageService: pageService,
 			}
-			if err := handler.RenderPage(c, content.NotFound()); err != nil {
+			if err := handler.RenderPage(c, content.NotFound(), "404"); err != nil {
 				c.Logger().Error(err)
 			}
 		} else {
