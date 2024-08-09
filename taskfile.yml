@@ -5,11 +5,15 @@ tasks:
     cmds:
       - go build -v -o bin/sober-roadmap main.go
     desc: Build the sober-roadmap binary
+    deps:
+      - generate
 
   run: # run the server
     cmds:
       - go run ./main.go
     desc: Run the server
+    deps:
+      - generate
 
   test:
     cmds:
@@ -57,6 +61,13 @@ tasks:
       - templ generate
     desc: Generate files based on templates
 
+  static:
+    cmds:
+      - go run ./main.go -generate
+    desc: Generate static site
+    deps:
+      - generate
+
   default:
     desc: Run default tasks
     deps:
@@ -64,6 +75,5 @@ tasks:
       - fmt
       - vet
       - lint
-      - generate
       - test
       - build
