@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fullstackdev42/sober/content"
 	"fullstackdev42/sober/handlers"
 	"fullstackdev42/sober/server"
 	"fullstackdev42/sober/services"
@@ -28,7 +29,7 @@ func main() {
 			handler := &handlers.DefaultHandler{
 				PageService: pageService,
 			}
-			if err := handler.RenderPage(c, "404"); err != nil {
+			if err := handler.RenderPage(c, content.NotFound()); err != nil {
 				c.Logger().Error(err)
 			}
 		} else {
