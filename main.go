@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"log"
 	"net/http"
 
@@ -13,7 +14,20 @@ import (
 )
 
 func main() {
+	// Define and parse the "generate" flag
+	generate := flag.Bool("generate", false, "Generate static site")
+	flag.Parse()
+
 	pageService := services.NewPageService()
+	staticSiteService := services.NewStaticSiteService(pageService)
+
+	if *generate {
+		// Generate static site
+		staticSiteService.Generate()
+		return
+	}
+
+	// Start Echo server
 	srv := server.NewServer(pageService)
 
 	// Set the NotFoundHandler to render your custom 404 page
