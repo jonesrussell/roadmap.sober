@@ -1,6 +1,6 @@
 module fullstackdev42/sober
 
-go 1.22.5
+go 1.21
 
 require (
 	github.com/a-h/templ v0.2.747
