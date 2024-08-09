@@ -18,6 +18,7 @@ func TestRenderPage(t *testing.T) {
 	// Create a new DefaultHandler
 	h := &DefaultHandler{
 		PageService: services.NewMockPageService(),
+		BasePath:    "/test", // Set the base path here
 	}
 
 	// Create a new HTTP request

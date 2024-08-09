@@ -1,12 +1,12 @@
 package components
 
-templ ContentPage(title string, body templ.Component) {
+templ ContentPage(basePath string, title string, body templ.Component) {
     <!doctype html>
     <html lang="en">
     <head>
         <meta charset="UTF-8" />
-        <link rel="icon" type="image/svg+xml" href="/static/sober.svg" />
-        <link rel="stylesheet" href="/static/style.css" />
+        <link rel="icon" type="image/svg+xml" href="{ basePath }/static/sober.svg" />
+        <link rel="stylesheet" href="{ basePath }/static/style.css" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>{ title } | Sobriety Roadmap</title>
     </head>

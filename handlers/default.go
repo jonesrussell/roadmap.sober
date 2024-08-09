@@ -14,11 +14,12 @@ import (
 
 type DefaultHandler struct {
 	PageService services.PageService
+	BasePath    string
 }
 
 func (h *DefaultHandler) RenderPage(c echo.Context, page templ.Component, title string) error {
 	// Wrap the page content with the ContentPage component
-	page = components.ContentPage(title, page)
+	page = components.ContentPage(h.BasePath, title, page)
 
 	// Render the page into a string
 	buf := templ.GetBuffer()

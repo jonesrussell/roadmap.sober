@@ -4,6 +4,7 @@ import (
 	"flag"
 	"log"
 	"net/http"
+	"os" // Import the os package
 
 	"github.com/jonesrussell/sober/content"
 	"github.com/jonesrussell/sober/handlers"
@@ -18,12 +19,15 @@ func main() {
 	generate := flag.Bool("generate", false, "Generate static site")
 	flag.Parse()
 
+	// Get the base path from the environment variable
+	basePath := os.Getenv("BASE_PATH")
+
 	pageService := services.NewPageService()
 	staticSiteService := services.NewStaticSiteService(pageService)
 
 	if *generate {
 		// Generate static site
-		staticSiteService.Generate()
+		staticSiteService.Generate(basePath) // Pass the base path to the Generate method
 		return
 	}
 
@@ -40,6 +44,7 @@ func main() {
 			// Use your DefaultHandler to render the 404 page
 			handler := &handlers.DefaultHandler{
 				PageService: pageService,
+				BasePath:    basePath,
 			}
 			if err := handler.RenderPage(c, content.NotFound(), "404"); err != nil {
 				c.Logger().Error(err)
