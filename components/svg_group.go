@@ -1,11 +1,13 @@
 package components
 
 import (
+	"bytes"
 	"context"
 	"fmt"
 	"io"
 
 	"github.com/a-h/templ"
+	svg "github.com/ajstarks/svgo"
 	"golang.org/x/image/font"
 	"golang.org/x/image/font/basicfont"
 )
@@ -26,21 +28,22 @@ func SVGGroup(index int, title string) templ.Component {
 
 	// Measure the text width
 	textWidth := measureTextWidth(title, face)
-	padding := 20.0                    // Padding on each side
+	padding := 10.0                    // Padding on each side
 	rectWidth := textWidth + 2*padding // Add padding to the width
 
 	// Calculate the center position
 	centerX := -213.18656999416484 + rectWidth/2
 
 	return templ.ComponentFunc(func(ctx context.Context, w io.Writer) error {
-		_, err := fmt.Fprintf(w, `
-			<g data-type="topic" data-title="%s">
-				<rect x="%f" y="%f" width="%f" height="46.3" rx="5" fill="#fdff00" stroke="black" stroke-width="2.7" style="--hover-color: #d6d700"></rect>
-				<text x="%f" y="%f" text-anchor="middle" dominant-baseline="middle" font-size="17" fill="#000000">
-					<tspan>%s</tspan>
-				</text>
-			</g>
-		`, title, centerX-rectWidth/2, rectY, rectWidth, centerX, textY, title)
+		var buf bytes.Buffer
+		canvas := svg.New(&buf)
+
+		canvas.Gtransform(fmt.Sprintf("translate(%f, %f)", centerX-rectWidth/2, rectY))
+		canvas.Rect(0, 0, int(rectWidth), 46, "rx=5", "fill=#fdff00", "stroke=black", "stroke-width=2.7", "style=--hover-color: #d6d700")
+		canvas.Text(int(centerX-(centerX-rectWidth/2)), int(textY-rectY), title, "text-anchor=middle", "dominant-baseline=middle", "font-size=17", "fill=#000000")
+		canvas.Gend()
+
+		_, err := w.Write(buf.Bytes())
 		return err
 	})
 }

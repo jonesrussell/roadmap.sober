@@ -30,18 +30,19 @@ func (s *StaticSiteService) Generate(basePath string) {
 	os.Mkdir("dist", 0755)
 
 	// Create and render home page
-	s.generatePage("index.html", components.ContentPage(basePath, "Home", content.Home()))
+	homeContent := content.Home()
+	s.generatePage("index.html", components.ContentPage(basePath, "Home", homeContent))
 
 	// Create and render community page
-	s.generatePage("community.html", components.ContentPage(basePath, "Community", content.Community()))
+	communityContent := content.Community()
+	s.generatePage("community.html", components.ContentPage(basePath, "Community", communityContent))
 
 	// Create and render 404 page
-	s.generatePage("404.html", components.ContentPage(basePath, "404", content.NotFound()))
+	notFoundContent := content.NotFound()
+	s.generatePage("404.html", components.ContentPage(basePath, "404", notFoundContent))
 
 	// Copy public assets to dist/static directory
 	s.copyPublicAssets()
-
-	log.Println("Static site generated successfully!")
 }
 
 func (s *StaticSiteService) generatePage(filename string, page templ.Component) {

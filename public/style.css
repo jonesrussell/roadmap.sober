@@ -131,3 +131,55 @@ button:focus-visible {
   color: white;
   text-decoration: none;
 }
+
+/* General styles for the header */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #000000; /* Black background */
+  border-bottom: 1px solid #dee2e6;
+}
+
+#logo {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #ffffff; /* White text for contrast */
+}
+
+nav {
+  display: flex;
+  gap: 15px;
+}
+
+nav a {
+  text-decoration: none;
+  color: #ffffff; /* White text for contrast */
+  font-size: 1em;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  header {
+      flex-direction: column;
+      align-items: flex-start;
+  }
+
+  nav {
+      flex-direction: column;
+      gap: 10px;
+      width: 100%;
+  }
+
+  nav a {
+      font-size: 1.2em;
+      padding: 10px 0;
+      width: 100%;
+      text-align: left;
+  }
+}
