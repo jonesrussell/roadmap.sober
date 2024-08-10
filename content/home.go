@@ -3,6 +3,7 @@ package content
 import (
 	"bytes"
 	"context"
+	"fmt"
 	"io"
 
 	"github.com/a-h/templ"
@@ -15,9 +16,21 @@ func Home() templ.Component {
 		var buf bytes.Buffer
 		canvas := svg.New(&buf)
 
-		canvas.Startview(800, 650, 0, 0, 800, 650)
+		// Define the dimensions of the SVG canvas
+		width := 800
+		height := 650
+
+		// Start the SVG canvas with the defined dimensions
+		canvas.Startview(width, height, 0, 0, width, height)
 		canvas.Title("Sobriety Roadmaps")
 		canvas.Desc("A roadmap to sobriety")
+
+		// Calculate the center position
+		centerX := width / 2
+		centerY := 0
+
+		// Apply a translate transformation to center the content
+		canvas.Gtransform(fmt.Sprintf("translate(%d, %d)", centerX, centerY))
 
 		components.SVGGroup(canvas, 0, "Admit the Problem")
 		components.SVGGroup(canvas, 1, "Seek Help")
@@ -29,6 +42,9 @@ func Home() templ.Component {
 		components.SVGGroup(canvas, 7, "Long-Term Maintenance")
 		components.SVGGroup(canvas, 8, "Forgive Yourself")
 		components.SVGGroup(canvas, 9, "Celebrate Milestones")
+
+		// End the group transformation
+		canvas.Gend()
 
 		canvas.End()
 		_, err := w.Write(buf.Bytes())
