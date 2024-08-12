@@ -6,8 +6,8 @@ import (
 	"os"
 
 	"github.com/a-h/templ"
-	"github.com/jonesrussell/sober/components"
 	"github.com/jonesrussell/sober/content"
+	"github.com/jonesrussell/sober/ui"
 )
 
 type StaticSiteService struct {
@@ -31,15 +31,15 @@ func (s *StaticSiteService) Generate(basePath string) {
 
 	// Create and render home page
 	homeContent := content.Home()
-	s.generatePage("index.html", components.ContentPage(basePath, "Home", homeContent))
+	s.generatePage("index.html", ui.ContentPage(basePath, "Home", homeContent))
 
 	// Create and render community page
 	communityContent := content.Community()
-	s.generatePage("community.html", components.ContentPage(basePath, "Community", communityContent))
+	s.generatePage("community.html", ui.ContentPage(basePath, "Community", communityContent))
 
 	// Create and render 404 page
 	notFoundContent := content.NotFound()
-	s.generatePage("404.html", components.ContentPage(basePath, "404", notFoundContent))
+	s.generatePage("404.html", ui.ContentPage(basePath, "404", notFoundContent))
 
 	// Copy public assets to dist/static directory
 	s.copyPublicAssets()
