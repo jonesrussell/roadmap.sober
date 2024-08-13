@@ -3,11 +3,11 @@ package services
 import (
 	"context"
 	"log"
-	"os"
 
 	"github.com/a-h/templ"
 	"github.com/jonesrussell/sober/content"
 	"github.com/jonesrussell/sober/ui/layout"
+	"github.com/spf13/afero"
 )
 
 const (
@@ -18,22 +18,24 @@ const (
 
 type StaticSiteService struct {
 	PageService PageService
+	fs          afero.Fs
 }
 
 func NewStaticSiteService(pageService PageService) *StaticSiteService {
 	return &StaticSiteService{
 		PageService: pageService,
+		fs:          afero.NewOsFs(),
 	}
 }
 
 func (s *StaticSiteService) Generate(basePath string) error {
 	// Delete dist directory if it exists
-	if _, err := os.Stat("dist"); !os.IsNotExist(err) {
-		os.RemoveAll("dist")
+	if _, err := afero.Exists(s.fs, "dist"); err != nil {
+		s.fs.Remove("dist")
 	}
 
 	// Create dist directory
-	os.Mkdir("dist", 0755)
+	s.fs.Mkdir("dist", 0755)
 
 	// Create and render home page
 	homeContent := content.Home()
@@ -66,7 +68,7 @@ func (s *StaticSiteService) Generate(basePath string) error {
 }
 
 func (s *StaticSiteService) generatePage(filename string, page templ.Component) error {
-	file, err := os.Create(distDir + "/" + filename)
+	file, err := s.fs.Create(distDir + "/" + filename)
 	if err != nil {
 		return err
 	}
@@ -81,11 +83,11 @@ func (s *StaticSiteService) generatePage(filename string, page templ.Component) 
 
 func (s *StaticSiteService) copyPublicAssets() error {
 	// Create dist/static directory
-	if err := os.MkdirAll(staticOutput, 0755); err != nil {
+	if err := s.fs.MkdirAll(staticOutput, 0755); err != nil {
 		return err
 	}
 
-	inputFiles, err := os.ReadDir(publicDir)
+	inputFiles, err := afero.ReadDir(s.fs, publicDir)
 	if err != nil {
 		return err
 	}
@@ -97,17 +99,17 @@ func (s *StaticSiteService) copyPublicAssets() error {
 		// Check if the file is a directory
 		if file.IsDir() {
 			// If it's a directory, create a corresponding directory in the output path
-			if err := os.MkdirAll(outputFile, 0755); err != nil {
+			if err := s.fs.MkdirAll(outputFile, 0755); err != nil {
 				return err
 			}
 		} else {
 			// If it's a file, copy it
-			input, err := os.ReadFile(inputFile)
+			input, err := afero.ReadFile(s.fs, inputFile)
 			if err != nil {
 				return err
 			}
 
-			if err := os.WriteFile(outputFile, input, 0644); err != nil {
+			if err := afero.WriteFile(s.fs, outputFile, input, 0644); err != nil {
 				return err
 			}
 		}
