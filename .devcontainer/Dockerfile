@@ -8,4 +8,5 @@ USER vscode
 
 # Install the necessary tools
 RUN go install github.com/go-task/task/v3/cmd/task@latest && \
-    go install github.com/gotesttools/gotestfmt/v2/cmd/gotestfmt@latest
+    go install github.com/gotesttools/gotestfmt/v2/cmd/gotestfmt@latest && \
+    go install github.com/a-h/templ/cmd/templ@latest
