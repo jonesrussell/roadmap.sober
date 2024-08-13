@@ -59,6 +59,7 @@ tasks:
   generate:
     cmds:
       - templ generate
+      - (cd tailwind && npm run build-css-prod)
     desc: Generate files based on templates
 
   static:
