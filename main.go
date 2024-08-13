@@ -23,9 +23,10 @@ func main() {
 	basePath := os.Getenv("BASE_PATH")
 
 	pageService := services.NewPageService()
-	staticSiteService := services.NewStaticSiteService(pageService)
 
 	if *generate {
+		staticSiteService := services.NewStaticSiteService(pageService)
+
 		// Generate static site
 		staticSiteService.Generate(basePath) // Pass the base path to the Generate method
 		return
