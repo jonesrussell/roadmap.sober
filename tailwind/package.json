@@ -4,8 +4,8 @@
     "description": "Sobriety Roadmap",
     "main": "index.js",
     "scripts": {
-      "watch-css": "npx tailwindcss -i base.css -o ../assets/css/main.css --watch",
-      "build-css-prod": "npx tailwindcss -i base.css -o ../assets/css/main.css --minify"
+      "watch-css": "npx tailwindcss -i base.css -o ../public/main.css --watch",
+      "build-css-prod": "npx tailwindcss -i base.css -o ../public/main.css --minify"
     },
     "keywords": [],
     "author": "emarifer",
