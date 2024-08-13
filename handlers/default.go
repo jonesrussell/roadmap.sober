@@ -6,7 +6,7 @@ import (
 	"net/http"
 
 	"github.com/jonesrussell/sober/services"
-	"github.com/jonesrussell/sober/ui"
+	"github.com/jonesrussell/sober/ui/layout"
 
 	"github.com/a-h/templ"
 	"github.com/labstack/echo/v4"
@@ -19,7 +19,7 @@ type DefaultHandler struct {
 
 func (h *DefaultHandler) RenderPage(c echo.Context, page templ.Component, title string) error {
 	// Wrap the page content with the ContentPage component
-	page = ui.ContentPage(h.BasePath, title, page)
+	page = layout.ContentPage(h.BasePath, title, page)
 
 	// Render the page into a string
 	buf := templ.GetBuffer()

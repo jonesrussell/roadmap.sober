@@ -6,7 +6,7 @@ module.exports = {
   content: [
     "../views/**/*.{templ,go}",
     "../content/*.{templ,go}",
-    "../ui/*.{templ,go}",
+    "../ui/**/*.{templ,go}",
   ],
   theme: {
     extend: {
