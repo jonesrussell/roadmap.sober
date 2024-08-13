@@ -1,0 +1,183 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+    font-family: Kanit;
+    font-weight: normal;
+    src: url("../fonts/Kanit-Regular.ttf") format("truetype");
+}
+
+/* --------------------------------------- */
+/* ---------- View Transitions ----------- */
+/* --------------------------------------- */
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+}
+
+@keyframes fade-out {
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes slide-from-right {
+    from {
+        transform: translateX(90px);
+    }
+}
+
+@keyframes slide-to-left {
+    to {
+        transform: translateX(-90px);
+    }
+}
+
+/* define animations for the old and new content */
+::view-transition-old(slide-it) {
+    animation: 180ms cubic-bezier(0.4, 0, 1, 1) both fade-out,
+        600ms cubic-bezier(0.4, 0, 0.2, 1) both slide-to-left;
+}
+
+::view-transition-new(slide-it) {
+    animation: 420ms cubic-bezier(0, 0, 0.2, 1) 90ms both fade-in,
+        600ms cubic-bezier(0.4, 0, 0.2, 1) both slide-from-right;
+}
+
+/* tie the view transition to a given CSS class */
+.sample-transition {
+    view-transition-name: slide-it;
+}
+
+/* Global Styles */
+body {
+    @apply leading-6 font-normal text-black antialiased;
+    min-width: 20rem;
+    min-height: 100vh;
+  }
+  
+  a {
+    @apply font-medium text-indigo-600 no-underline;
+  }
+  
+  a:hover {
+    @apply text-indigo-500;
+  }
+  
+  @media (prefers-color-scheme: light) {
+    :root {
+      @apply text-gray-800 bg-white;
+    }
+    a:hover {
+      @apply text-indigo-400;
+    }
+    button {
+      @apply bg-gray-100;
+    }
+  }
+  
+  /* Layout Styles */
+  main {
+    @apply max-w-7xl mx-auto p-5;  
+}
+  
+  /* Component-Specific Styles */
+  header, footer {
+    @apply bg-black text-white py-5 text-center;
+  }
+    
+  h1 {
+    @apply text-4xl leading-tight;
+  }
+  
+  .logo {
+    @apply h-24 py-6 transition-all duration-300 ease-in-out;
+    will-change: filter;
+  }
+  
+  .logo:hover {
+    @apply drop-shadow-2xl;
+  }
+  
+  .logo.vanilla:hover {
+    @apply drop-shadow-2xl;
+  }
+  
+  .card {
+    @apply p-8;
+  }
+  
+  .read-the-docs {
+    @apply text-gray-500;
+  }
+  
+  button {
+    @apply rounded-lg border border-transparent px-3 py-1.5 text-base font-medium cursor-pointer transition-colors duration-200 ease-in-out;
+    @apply bg-gray-900;
+  }
+  
+  button:hover {
+    @apply border-indigo-600;
+  }
+  
+  button:focus,
+  button:focus-visible {
+    @apply outline-none ring-4 ring-blue-500;
+  }
+  
+  .footer-row {
+    @apply grid gap-5 py-5;
+    grid-template-columns: repeat(auto-fit, minmax(50rem, 1fr));
+  }
+  
+  .footer-column h4 {
+    @apply mb-2.5;
+  }
+  
+  .footer-column ul {
+    @apply list-none p-0;
+  }
+  
+  .footer-column ul li a {
+    @apply text-white no-underline;
+  }
+  
+  /* General styles for the header */
+  header {
+    @apply flex justify-between items-center px-5 bg-black border-b border-gray-300;
+  }
+  
+  #logo {
+    @apply text-3xl font-bold text-white;
+  }
+  
+  nav {
+    @apply flex gap-[3.75];
+  }
+  
+  nav a {
+    @apply no-underline text-white text-base;
+  }
+  
+  nav a:hover {
+    @apply underline;
+  }
+  
+  /* Responsive styles */
+  @media (max-width: 48rem) {
+    header {
+        @apply flex-col items-start;
+    }
+  
+    nav {
+        @apply flex-col gap-2.5 w-full;
+    }
+  
+    nav a {
+        @apply text-lg py-2.5 w-full text-left;
+    }
+  }
+  

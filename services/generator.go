@@ -7,7 +7,13 @@ import (
 
 	"github.com/a-h/templ"
 	"github.com/jonesrussell/sober/content"
-	"github.com/jonesrussell/sober/ui"
+	"github.com/jonesrussell/sober/ui/layout"
+)
+
+const (
+	distDir      = "dist"
+	publicDir    = "public/"
+	staticOutput = "dist/static/"
 )
 
 type StaticSiteService struct {
@@ -20,7 +26,7 @@ func NewStaticSiteService(pageService PageService) *StaticSiteService {
 	}
 }
 
-func (s *StaticSiteService) Generate(basePath string) {
+func (s *StaticSiteService) Generate(basePath string) error {
 	// Delete dist directory if it exists
 	if _, err := os.Stat("dist"); !os.IsNotExist(err) {
 		os.RemoveAll("dist")
@@ -31,57 +37,81 @@ func (s *StaticSiteService) Generate(basePath string) {
 
 	// Create and render home page
 	homeContent := content.Home()
-	s.generatePage("index.html", ui.ContentPage(basePath, "Home", homeContent))
+	if err := s.generatePage("index.html", layout.ContentPage(basePath, "Home", homeContent)); err != nil {
+		log.Printf("Failed to generate home page: %v", err)
+		return err
+	}
 
 	// Create and render community page
 	communityContent := content.Community()
-	s.generatePage("community.html", ui.ContentPage(basePath, "Community", communityContent))
+	if err := s.generatePage("community.html", layout.ContentPage(basePath, "Community", communityContent)); err != nil {
+		log.Printf("Failed to generate community page: %v", err)
+		return err
+	}
 
 	// Create and render 404 page
 	notFoundContent := content.NotFound()
-	s.generatePage("404.html", ui.ContentPage(basePath, "404", notFoundContent))
+	if err := s.generatePage("404.html", layout.ContentPage(basePath, "404", notFoundContent)); err != nil {
+		log.Printf("Failed to generate 404 page: %v", err)
+		return err
+	}
 
 	// Copy public assets to dist/static directory
-	s.copyPublicAssets()
+	if err := s.copyPublicAssets(); err != nil {
+		log.Printf("Failed to copy public assets: %v", err)
+		return err
+	}
+
+	return nil
 }
 
-func (s *StaticSiteService) generatePage(filename string, page templ.Component) {
-	file, err := os.Create("dist/" + filename)
+func (s *StaticSiteService) generatePage(filename string, page templ.Component) error {
+	file, err := os.Create(distDir + "/" + filename)
 	if err != nil {
-		log.Fatalf("failed to create %s: %v", filename, err)
+		return err
 	}
 	defer file.Close()
 
-	err = page.Render(context.Background(), file)
-	if err != nil {
-		log.Fatalf("failed to render %s: %v", filename, err)
+	if err := page.Render(context.Background(), file); err != nil {
+		return err
 	}
+
+	return nil
 }
 
-func (s *StaticSiteService) copyPublicAssets() {
-	inputPath := "public/"
-	outputPath := "dist/static/"
-
+func (s *StaticSiteService) copyPublicAssets() error {
 	// Create dist/static directory
-	os.MkdirAll(outputPath, 0755)
+	if err := os.MkdirAll(staticOutput, 0755); err != nil {
+		return err
+	}
 
-	inputFiles, err := os.ReadDir(inputPath)
+	inputFiles, err := os.ReadDir(publicDir)
 	if err != nil {
-		log.Fatalf("failed to read public directory: %v", err)
+		return err
 	}
 
 	for _, file := range inputFiles {
-		inputFile := inputPath + file.Name()
-		outputFile := outputPath + file.Name()
+		inputFile := publicDir + file.Name()
+		outputFile := staticOutput + file.Name()
 
-		input, err := os.ReadFile(inputFile)
-		if err != nil {
-			log.Fatalf("failed to read file %s: %v", inputFile, err)
-		}
+		// Check if the file is a directory
+		if file.IsDir() {
+			// If it's a directory, create a corresponding directory in the output path
+			if err := os.MkdirAll(outputFile, 0755); err != nil {
+				return err
+			}
+		} else {
+			// If it's a file, copy it
+			input, err := os.ReadFile(inputFile)
+			if err != nil {
+				return err
+			}
 
-		err = os.WriteFile(outputFile, input, 0644)
-		if err != nil {
-			log.Fatalf("failed to write file %s: %v", outputFile, err)
+			if err := os.WriteFile(outputFile, input, 0644); err != nil {
+				return err
+			}
 		}
 	}
+
+	return nil
 }

@@ -1,4 +1,4 @@
-package ui
+package layout
 
 templ ContentPage(base string, title string, body templ.Component) {
     <!doctype html>
@@ -6,13 +6,13 @@ templ ContentPage(base string, title string, body templ.Component) {
     <head>
         <meta charset="UTF-8" />
         <link rel="icon" type="image/svg+xml" href={base + "/static/sober.svg"} />
-        <link rel="stylesheet" href={base + "/static/style.css"} />
+        <link rel="stylesheet" href={base + "/static/main.css"} />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>{ title } | Sobriety Roadmap</title>
     </head>
-    <body>
+    <body class="font-inter leading-6 font-normal text-black bg-white antialiased text-opacity-87 min-w-20rem min-h-screen">
         @Header(base, title)
-        <main>
+        <main class="max-w-7xl mx-auto p-5">
             @body
         </main>
         @Footer()

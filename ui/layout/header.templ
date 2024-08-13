@@ -1,0 +1,11 @@
+package layout
+
+templ Header(base string, title string) {
+    <header class="flex justify-between items-center px-5 bg-black border-b border-gray-300">
+        <div id="logo" class="text-3xl font-bold text-white">Roadmap to Sobriety</div>
+        <nav class="flex gap-3.75">
+            <a href={ templ.URL(base + "/") } class="no-underline text-white text-base">Home</a> |
+            <a href={ templ.URL(base + "/community") } class="no-underline text-white text-base">Community</a>
+        </nav>
+    </header>
+}
