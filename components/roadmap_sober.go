@@ -12,7 +12,6 @@ import (
 const (
 	width       = 800
 	height      = 650
-	groupWidth  = 100
 	groupHeight = 50
 )
 
@@ -47,7 +46,7 @@ func RoadmapSober() templ.Component {
 
 		var prevMiddleBottomX, prevMiddleBottomY int
 		for i := 0; i < len(groups); i++ {
-			middleTopX, middleTopY, middleBottomX, middleBottomY := SVGGroup(canvas, i, groups[i])
+			middleTopX, middleTopY, middleBottomX, middleBottomY := SVGGroup(canvas, i, groups[i], centerX)
 
 			if i > 0 {
 				// Draw a vertical path from the previous group's bottom middle to the current group's top middle
