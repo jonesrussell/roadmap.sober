@@ -9,8 +9,8 @@ import (
 )
 
 const (
-	padding    = 20.0
-	rectHeight = 46
+	padding    = 10
+	rectHeight = 40
 )
 
 func measureTextWidth(text string, face font.Face) float64 {
@@ -35,7 +35,7 @@ func Button(canvas *svg.SVG, index int, title string, centerX int, id string) (m
 	groupCenterX := centerX - int(rectWidth/2)
 
 	// Adjust the group position based on the calculated groupCenterX and rectY
-	canvas.Group(fmt.Sprintf(`id="%s" style="transform:translate(%fpx, %fpx);"`, id, float64(groupCenterX), rectY))
+	canvas.Group(fmt.Sprintf(`id="%s" style="transform:translate(%fpx, %fpx); cursor: pointer;"`, id, float64(groupCenterX), rectY))
 	canvas.Rect(0, 0, int(rectWidth), rectHeight, "rx=5", "fill=#fdff00", "stroke=black", "stroke-width=2.7", "style=--hover-color: #d6d700")
 	canvas.Text(int(rectWidth/2), int(textY-rectY), title, "text-anchor=middle", "dominant-baseline=middle", "font-size=17", "fill=#000000")
 	canvas.Gend()
