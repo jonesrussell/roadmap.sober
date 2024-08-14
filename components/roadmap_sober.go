@@ -26,10 +26,6 @@ func RoadmapSober() templ.Component {
 
 		// Calculate the center position for horizontal centering
 		centerX := width / 2
-		centerY := 0 // No vertical centering
-
-		// Apply a translate transformation to center the content horizontally
-		canvas.Gtransform(fmt.Sprintf("translate(%d, %d)", centerX, centerY))
 
 		groups := []string{
 			"Admit the Problem",
@@ -56,9 +52,6 @@ func RoadmapSober() templ.Component {
 			prevMiddleBottomX = middleBottomX
 			prevMiddleBottomY = middleBottomY
 		}
-
-		// End the group transformation
-		canvas.Gend()
 
 		canvas.End()
 
