@@ -19,8 +19,13 @@ func NewServer(pageService services.PageService) *Server {
 	}
 
 	// Routes
-	e.GET("/", handler.Home)
-	e.GET("/community", handler.Community)
+	e.GET("/", func(c echo.Context) error {
+		c.SetParamNames("page")
+		c.SetParamValues("home")
+		return handler.Page(c)
+	})
+
+	e.GET("/:page", handler.Page)
 
 	// Serve static files
 	e.Static("/static", "public")

@@ -38,3 +38,12 @@ func (h *DefaultHandler) Unsafe(html string) templ.Component {
 		return
 	})
 }
+
+func (h *DefaultHandler) Page(c echo.Context) error {
+	pageName := c.Param("page")
+	page, err := h.PageService.GetWebpage(pageName)
+	if err != nil {
+		return err
+	}
+	return h.RenderPage(c, page.Content, page.Title)
+}
