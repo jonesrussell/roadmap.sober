@@ -2,30 +2,52 @@
 
 http://jonesrussell.github.io/sober
 
-A brief description of what this project does and who it's for.
+Sober Roadmap is intended to be a starting point for alcoholics, drug addicts, and family members of both. It provides an easy-to-follow roadmap to a better understanding of addiction, introduction to meetings, counseling, and more.
 
 ## Installation
 
 1. Clone the repo:
-	```sh
-	git clone https://github.com/jonesrussell/sober.git
-	```
+    ```sh
+    git clone https://github.com/jonesrussell/sober.git
+    ```
 2. Navigate to the project directory:
-	```sh
-	cd sober
-	```
+    ```sh
+    cd sober
+    ```
 3. Install dependencies:
-	```sh
+    ```sh
     task default
-	```
+    ```
 
 ## Usage
 
-1. Run the application:
-	```sh
-	task run
-	```
-2. Open your browser and navigate to `http://localhost:8080`
+### Running the Echo Server
+
+You can run the Echo server using the `task` command or directly with `go run`:
+
+1. Using `task`:
+    ```sh
+    task run
+    ```
+
+2. Using `go run`:
+    ```sh
+    go run ./main.go
+    ```
+
+### Generating Static HTML
+
+You can generate static HTML using the `task` command or directly with `go run`:
+
+1. Using `task`:
+    ```sh
+    task static
+    ```
+
+2. Using `go run`:
+    ```sh
+    go run ./main.go -generate
+    ```
 
 ## Contributing
 

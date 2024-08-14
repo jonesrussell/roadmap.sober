@@ -8,10 +8,10 @@ tasks:
     deps:
       - generate
 
-  run: # run the server
+  start:
+    desc: Start the server
     cmds:
       - go run ./main.go
-    desc: Run the server
     deps:
       - generate
 
@@ -69,12 +69,39 @@ tasks:
     deps:
       - generate
 
-  default:
-    desc: Run default tasks
+  ci:
+    desc: Run all checks and tests
     deps:
-      - clean
       - fmt
       - vet
       - lint
       - test
+
+  watch:
+    desc: Watch for file changes and rebuild/restart
+    cmds:
+      - air
+
+  coverage:
+    desc: Generate test coverage report
+    cmds:
+      - go test -coverprofile=coverage.out ./...
+      - go tool cover -html=coverage.out -o coverage.html
+
+  docs:
+    desc: Generate or serve documentation
+    cmds:
+      - godoc -http=:6060
+
+  deploy:
+    desc: Deploy the application
+    cmds:
+      - scp bin/sober-roadmap user@server:/path/to/deploy
+      - ssh user@server 'systemctl restart sober-roadmap'
+
+  default:
+    desc: Run default tasks
+    deps:
+      - clean
+      - ci
       - build
