@@ -36,6 +36,9 @@ jobs:
     - name: Build
       run: go build -v ./...
 
+    - name: Build CSS for Production
+      run: npm run build-css-prod    
+
     - name: Generate Static Site
       env:
         BASE_PATH: /sober
