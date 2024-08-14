@@ -1,44 +1,17 @@
 package components
 
 templ Drawer() {
-	<div class="relative z-10" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
-		<!--
-    Background backdrop, show/hide based on slide-over state.
-
-    Entering: "ease-in-out duration-500"
-      From: "opacity-0"
-      To: "opacity-100"
-    Leaving: "ease-in-out duration-500"
-      From: "opacity-100"
-      To: "opacity-0"
-  -->
+	<div class="relative z-10 hidden" id="slide-over" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
+		<!-- Background backdrop, show/hide based on slide-over state. -->
 		<div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
 		<div class="fixed inset-0 overflow-hidden">
 			<div class="absolute inset-0 overflow-hidden">
 				<div class="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10">
-					<!--
-          Slide-over panel, show/hide based on slide-over state.
-
-          Entering: "transform transition ease-in-out duration-500 sm:duration-700"
-            From: "translate-x-full"
-            To: "translate-x-0"
-          Leaving: "transform transition ease-in-out duration-500 sm:duration-700"
-            From: "translate-x-0"
-            To: "translate-x-full"
-        -->
+					<!-- Slide-over panel, show/hide based on slide-over state. -->
 					<div class="pointer-events-auto relative w-screen max-w-md">
-						<!--
-            Close button, show/hide based on slide-over state.
-
-            Entering: "ease-in-out duration-500"
-              From: "opacity-0"
-              To: "opacity-100"
-            Leaving: "ease-in-out duration-500"
-              From: "opacity-100"
-              To: "opacity-0"
-          -->
+						<!-- Close button, show/hide based on slide-over state. -->
 						<div class="absolute left-0 top-0 -ml-8 flex pr-2 pt-4 sm:-ml-10 sm:pr-4">
-							<button type="button" class="relative rounded-md text-gray-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-white">
+							<button id="close-panel" type="button" class="relative rounded-md text-gray-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-white">
 								<span class="absolute -inset-2.5"></span>
 								<span class="sr-only">Close panel</span>
 								<svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
@@ -52,9 +25,6 @@ templ Drawer() {
 							</div>
 							<div class="relative mt-6 flex-1 px-4 sm:px-6">
 								<!-- Your content -->
-								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec maximus a velit nec sollicitudin. Aliquam vehicula justo et nibh finibus fringilla. Nam nisl est, fringilla et ullamcorper eu, elementum quis sem. Quisque blandit, dolor eu consectetur efficitur, lectus justo accumsan nisi, eu mollis dui erat ut tortor. Morbi venenatis tristique nulla vitae faucibus. Nam pellentesque eget mauris sit amet cursus. Nunc leo ex, elementum ut orci nec, iaculis facilisis nisi. Nulla commodo, magna vel dignissim aliquam, dui leo venenatis sem, in cursus nisi nunc vel erat. Aenean tortor nisl, dignissim eget eros et, sollicitudin pharetra neque. Nulla iaculis est a diam dictum vulputate. Donec nisl ipsum, tempor ut blandit a, facilisis sit amet tellus. Donec suscipit lobortis mi, a mattis enim condimentum in. Duis facilisis tellus sagittis sem maximus euismod.</p>
-								<p>Quisque est velit, cursus vel sapien sit amet, consequat pulvinar mi. Cras augue lectus, pulvinar eu auctor id, euismod vitae purus. In accumsan, tortor a laoreet tempor, est turpis vulputate diam, ut venenatis arcu magna molestie dui. Proin libero nunc, cursus quis scelerisque id, porta at dui. Ut iaculis sem metus, vel dictum urna convallis at. Nulla ut eros vel enim molestie fringilla fringilla nec tortor. Donec et leo sed nulla imperdiet ultricies. Praesent ultricies sodales nibh a semper. Integer euismod, justo vel sagittis lobortis, libero nisi consequat elit, eu egestas urna elit sit amet velit. Praesent auctor justo feugiat neque fringilla, tristique pulvinar justo condimentum. Phasellus eget odio eleifend, rutrum purus id, bibendum odio. Donec fringilla tempor erat eu molestie. Sed ut ligula vitae mi volutpat porta vitae a massa. Suspendisse mattis diam orci, in dictum urna efficitur at. Fusce mi massa, ullamcorper vel enim in, bibendum volutpat augue. Integer ac mollis quam.</p>
-								<p>Nulla at mauris vel leo dignissim accumsan quis quis turpis. Proin sem dui, hendrerit non ante nec, consectetur sodales sem. Pellentesque nec lorem et ex aliquam ultrices. Suspendisse potenti. Interdum et malesuada fames ac ante ipsum primis in faucibus. Etiam at libero condimentum, malesuada ligula at, rhoncus arcu. Phasellus sed sem tellus. Curabitur placerat eget mauris vitae feugiat.</p>
 							</div>
 						</div>
 					</div>
@@ -62,4 +32,19 @@ templ Drawer() {
 			</div>
 		</div>
 	</div>
+	<script>
+  const groupElements = document.querySelectorAll('[id^="group-"]');
+  const closePanelButton = document.getElementById('close-panel');
+  const slideOver = document.getElementById('slide-over');
+
+  groupElements.forEach(group => {
+    group.addEventListener('click', () => {
+      slideOver.classList.remove('hidden');
+    });
+  });
+
+  closePanelButton.addEventListener('click', () => {
+    slideOver.classList.add('hidden');
+  });
+</script>
 }

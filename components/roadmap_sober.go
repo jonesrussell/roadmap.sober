@@ -42,7 +42,7 @@ func RoadmapSober() templ.Component {
 
 		var prevMiddleBottomX, prevMiddleBottomY int
 		for i := 0; i < len(groups); i++ {
-			middleTopX, middleTopY, middleBottomX, middleBottomY := Button(canvas, i, groups[i], centerX)
+			middleTopX, middleTopY, middleBottomX, middleBottomY := Button(canvas, i, groups[i], centerX, fmt.Sprintf("group-%d", i))
 
 			if i > 0 {
 				// Draw a vertical path from the previous group's bottom middle to the current group's top middle
