@@ -1,6 +1,6 @@
 {
     "files.associations": {
-        "*.templ": "Go"
+        "*.templ": "templ"
     },
     "editor.formatOnSave": true,
     "[templ]": {

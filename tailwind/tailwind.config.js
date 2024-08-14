@@ -4,6 +4,7 @@ const { fontFamily } = require('tailwindcss/defaultTheme');
 
 module.exports = {
   content: [
+    "../components/**/*.{templ,go}",
     "../views/**/*.{templ,go}",
     "../content/*.{templ,go}",
     "../ui/**/*.{templ,go}",
