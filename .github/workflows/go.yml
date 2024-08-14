@@ -37,7 +37,8 @@ jobs:
       run: go build -v ./...
 
     - name: Build CSS for Production
-      run: npm run build-css-prod    
+      run: npm run build-css-prod
+      working-directory: tailwind/
 
     - name: Generate Static Site
       env:
