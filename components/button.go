@@ -20,7 +20,7 @@ func measureTextWidth(text string, face font.Face) float64 {
 	return float64(d.MeasureString(text)) / 64.0 // fixed.Int26_6 to float64
 }
 
-func SVGGroup(canvas *svg.SVG, index int, title string, centerX int) (middleTopX, middleTopY, middleBottomX, middleBottomY int) {
+func Button(canvas *svg.SVG, index int, title string, centerX int) (middleTopX, middleTopY, middleBottomX, middleBottomY int) {
 	rectY := 33.6 + float64(index)*60
 	textY := 58.9 + float64(index)*60
 
