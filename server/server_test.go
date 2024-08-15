@@ -29,6 +29,10 @@ func (m *MockPageService) GetWebpage(title string) (services.Webpage, error) {
 	}, nil
 }
 
+func (m *MockPageService) GetContentByID(id string) (string, error) {
+	return "mock content", nil
+}
+
 func TestNewServer(t *testing.T) {
 	// Create a new server with the mock page service
 	s := NewServer(&MockPageService{})

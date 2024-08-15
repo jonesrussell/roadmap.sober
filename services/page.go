@@ -14,6 +14,7 @@ type Webpage struct {
 
 type PageService interface {
 	GetWebpage(pageName string) (Webpage, error)
+	GetContentByID(id string) (string, error)
 }
 
 type PageServiceImpl struct {
@@ -44,4 +45,8 @@ func (ps *PageServiceImpl) GetWebpage(pageName string) (Webpage, error) {
 		return Webpage{}, echo.ErrNotFound
 	}
 	return page, nil
+}
+
+func (ps *PageServiceImpl) GetContentByID(id string) (string, error) {
+	return "foobar", nil
 }

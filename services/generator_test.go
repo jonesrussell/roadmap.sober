@@ -9,6 +9,10 @@ import (
 	"github.com/spf13/afero"
 )
 
+func (m *mockPageService) GetContentByID(id string) (string, error) {
+	return "mock content", nil
+}
+
 func TestGeneratePage(t *testing.T) {
 	// Create a new in-memory file system
 	fs := afero.NewMemMapFs()
