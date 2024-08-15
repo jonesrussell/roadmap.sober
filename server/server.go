@@ -27,6 +27,8 @@ func NewServer(pageService services.PageService) *Server {
 
 	e.GET("/:page", handler.Page)
 
+	e.GET("/sober/:id", handler.LoadContent)
+
 	// Serve static files
 	e.Static("/static", "public")
 

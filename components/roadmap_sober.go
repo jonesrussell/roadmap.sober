@@ -9,24 +9,26 @@ import (
 	svg "github.com/ajstarks/svgo"
 )
 
+// Constants for SVG dimensions and layout
 const (
 	width       = 800
 	height      = 650
 	groupHeight = 50
 )
 
+// RoadmapSober returns a templ.Component that renders a sobriety roadmap SVG
 func RoadmapSober() templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, w io.Writer) error {
 		canvas := svg.New(w)
 
-		// Start the SVG canvas with the defined dimensions
+		// Initialize SVG canvas
 		canvas.Start(width, height, `style="width: 100%; height: 100%;"`)
 		canvas.Title("Sobriety Roadmaps")
 		canvas.Desc("A roadmap to sobriety")
 
-		// Calculate the center position for horizontal centering
 		centerX := width / 2
 
+		// Define the steps in the sobriety journey
 		groups := []string{
 			"Admit the Problem",
 			"Seek Help",
@@ -41,16 +43,14 @@ func RoadmapSober() templ.Component {
 		}
 
 		var prevMiddleBottomX, prevMiddleBottomY int
-		for i := 0; i < len(groups); i++ {
-			middleTopX, middleTopY, middleBottomX, middleBottomY := Button(canvas, i, groups[i], centerX, fmt.Sprintf("group-%d", i))
+		for i, group := range groups {
+			middleTopX, middleTopY, middleBottomX, middleBottomY := Button(canvas, i, group, centerX, fmt.Sprintf("group-%d", i))
 
 			if i > 0 {
-				// Draw a vertical path from the previous group's bottom middle to the current group's top middle
 				drawVerticalPath(canvas, prevMiddleBottomX, prevMiddleBottomY, middleTopX, middleTopY)
 			}
 
-			prevMiddleBottomX = middleBottomX
-			prevMiddleBottomY = middleBottomY
+			prevMiddleBottomX, prevMiddleBottomY = middleBottomX, middleBottomY
 		}
 
 		canvas.End()
@@ -59,7 +59,12 @@ func RoadmapSober() templ.Component {
 	})
 }
 
+// drawVerticalPath draws a line between two points in the SVG
 func drawVerticalPath(canvas *svg.SVG, startX, startY, endX, endY int) {
 	path := fmt.Sprintf("M%d %d L%d %d", startX, startY, endX, endY)
 	canvas.Path(path, "fill:none;stroke:black")
 }
+
+// Button is assumed to be a function that returns the coordinates of a button
+// This function needs to be implemented elsewhere or its signature might need to be adjusted
+// func Button(canvas *svg.SVG, index int, text string, centerX int, id string) (int, int, int, int)
