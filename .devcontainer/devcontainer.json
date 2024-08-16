@@ -16,7 +16,8 @@
 				"ms-azuretools.vscode-docker",
 				"redhat.vscode-yaml",
 				"task.vscode-task",
-				"a-h.templ"
+				"a-h.templ",
+				"GitHub.copilot"
 			]
 		}
 	},
