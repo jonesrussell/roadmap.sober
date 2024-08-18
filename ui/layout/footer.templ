@@ -1,27 +1,25 @@
 package layout
 
 templ Footer() {
-    <footer>
-        <div class="footer-row">
-            <p>© 2024 Sober Journey</p>
-        </div>
-        <div class="footer-row">
-            <div class="footer-column">
-                <h4>About</h4>
-                <ul>
-                    <li><a href="#mission">Our Mission</a></li>
-                    <li><a href="#team">Our Team</a></li>
-                    <li><a href="#contact">Contact Us</a></li>
-                </ul>
-            </div>
-            <div class="footer-column">
-                <h4>Resources</h4>
-                <ul>
-                    <li><a href="#roadmaps">Sobriety Roadmaps</a></li>
-                    <li><a href="#tips">Tips for Beginners</a></li>
-                    <li><a href="#community">Join the Community</a></li>
-                </ul>
-            </div>
-        </div>
-    </footer>
+	<footer class="bg-black text-white py-5 text-center">
+		<div class="grid gap-5 py-5 grid-cols-1 md:grid-cols-2">
+			<p>© 2024 Sober Journey</p>
+		</div>
+		<div class="grid gap-5 py-5 grid-cols-1 md:grid-cols-2">
+			<div>
+				<h4 class="mb-2.5">About</h4>
+				<ul class="list-none p-0">
+					<li><a href="#mission" class="text-white no-underline">Our Mission</a></li>
+					<li><a href="#contact" class="text-white no-underline">Contact Us</a></li>
+				</ul>
+			</div>
+			<div>
+				<h4 class="mb-2.5">Resources</h4>
+				<ul class="list-none p-0">
+					<li><a href="#tips" class="text-white no-underline">Tips for Beginners</a></li>
+					<li><a href="#community" class="text-white no-underline">Join the Community</a></li>
+				</ul>
+			</div>
+		</div>
+	</footer>
 }

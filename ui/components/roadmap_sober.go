@@ -11,7 +11,7 @@ import (
 
 // Constants for SVG dimensions and layout
 const (
-	width       = 800
+	width       = 360
 	height      = 650
 	groupHeight = 50
 )

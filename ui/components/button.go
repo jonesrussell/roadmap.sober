@@ -9,7 +9,7 @@ import (
 )
 
 const (
-	padding    = 10
+	padding    = 20
 	rectHeight = 40
 )
 
