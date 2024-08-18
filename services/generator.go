@@ -6,6 +6,7 @@ import (
 
 	"github.com/a-h/templ"
 	"github.com/jonesrussell/sober/content"
+	"github.com/jonesrussell/sober/ui/components"
 	"github.com/jonesrussell/sober/ui/layout"
 	"github.com/spf13/afero"
 )
@@ -38,7 +39,11 @@ func (s *StaticSiteService) Generate(basePath string) error {
 	s.fs.Mkdir("dist", 0755)
 
 	// Create and render home page
-	homeContent := content.Home()
+	step := &components.Step{
+		// Initialize the Step struct fields as required
+	}
+
+	homeContent := content.Home(step)
 	if err := s.generatePage("index.html", layout.ContentPage(basePath, "Home", homeContent)); err != nil {
 		log.Printf("Failed to generate home page: %v", err)
 		return err

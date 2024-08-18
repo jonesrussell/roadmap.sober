@@ -2,6 +2,7 @@ package services
 
 import (
 	"github.com/jonesrussell/sober/content"
+	"github.com/jonesrussell/sober/ui/components"
 
 	"github.com/a-h/templ"
 	"github.com/labstack/echo/v4"
@@ -24,11 +25,13 @@ type PageServiceImpl struct {
 var _ PageService = &PageServiceImpl{}
 
 func NewPageService() *PageServiceImpl {
+	homeStep := &components.Step{}
+
 	return &PageServiceImpl{
 		pages: map[string]Webpage{
 			"home": {
 				Title:   "Home",
-				Content: content.Home(),
+				Content: content.Home(homeStep),
 			},
 			"community": {
 				Title:   "Community",
