@@ -29,6 +29,12 @@ func NewServer(pageService services.PageService) *Server {
 
 	e.GET("/sober/:id", handler.LoadContent)
 
+	// New route for roadmap
+	e.GET("/roadmap/:id", func(c echo.Context) error {
+		id := c.Param("id")
+		return c.String(200, "Roadmap ID: "+id)
+	})
+
 	// Serve static files
 	e.Static("/static", "public")
 
