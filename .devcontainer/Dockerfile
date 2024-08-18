@@ -4,6 +4,8 @@ FROM mcr.microsoft.com/devcontainers/go:1-1.21-bookworm
 # Change the ownership of the Go directories
 RUN chown -R vscode:vscode /go
 
+RUN chsh -s /usr/bin/zsh vscode
+
 USER vscode
 
 # Install the necessary tools
