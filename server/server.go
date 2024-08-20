@@ -56,9 +56,9 @@ func getStepById(id string) (*components.Step, error) {
 	// This could involve querying a database or another form of storage
 	// For demonstration, returning hardcoded values
 	switch id {
-	case "0":
+	case "group-0":
 		return &components.Step{Text: "Admit the Problem", Content: "Initial step...", PanelTitle: "Step 1"}, nil
-	case "1":
+	case "group-1":
 		return &components.Step{Text: "Seek Help", Content: "Find support...", PanelTitle: "Step 2"}, nil
 	// Add more cases as needed
 	default:

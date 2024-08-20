@@ -35,7 +35,7 @@ func RoadmapSober() templ.Component {
 		centerX := width / 2
 
 		// Define the steps in the sobriety journey
-		groups := []Step{
+		buttons := []Step{
 			{Text: "Admit the Problem", Content: "Content for Admit the Problem", PanelTitle: "Admit the Problem"},
 			{Text: "Seek Help", Content: "Content for Seek Help", PanelTitle: "Seek Help"},
 			{Text: "Detoxification", Content: "Content for Detoxification", PanelTitle: "Detoxification"},
@@ -49,7 +49,7 @@ func RoadmapSober() templ.Component {
 		}
 
 		var prevMiddleBottomX, prevMiddleBottomY int
-		for i, group := range groups {
+		for i, group := range buttons {
 			middleTopX, middleTopY, middleBottomX, middleBottomY := Button(canvas, i, group.Text, centerX, fmt.Sprintf("group-%d", i))
 
 			if i > 0 {

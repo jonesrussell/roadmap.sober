@@ -33,7 +33,8 @@ func Drawer(step *Step) templ.Component {
                         <div class="px-4 sm:px-6">
                             <h2 class="text-base font-semibold leading-6 text-gray-900" id="slide-over-title">%s</h2>
                         </div>
-                        <div class="relative mt-6 flex-1 px-4 sm:px-6" hx-swap="innerHTML" hx-target="#slide-over-content">
+                        <!-- Your content will be statically placed here -->
+                        <div id="slide-over-content">
                             %s
                         </div>
                     </div>
