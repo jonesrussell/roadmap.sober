@@ -6,7 +6,6 @@ import (
 	"testing"
 
 	"github.com/jonesrussell/sober/content"
-	"github.com/jonesrussell/sober/ui/components"
 	"github.com/spf13/afero"
 )
 
@@ -22,7 +21,7 @@ func TestGeneratePage(t *testing.T) {
 	s := NewStaticSiteService(&mockPageService{})
 	s.fs = fs
 
-	step := &components.Step{
+	step := &services.Step{
 		Text:       "Admit the Problem",
 		Content:    "Content for Admit the Problem",
 		PanelTitle: "Admit the Problem",

@@ -1,12 +1,10 @@
 package server
 
 import (
-	"errors"
 	"net/http"
 
 	"github.com/jonesrussell/sober/handlers"
 	"github.com/jonesrussell/sober/services"
-	"github.com/jonesrussell/sober/ui/components"
 
 	"github.com/labstack/echo/v4"
 )
@@ -15,11 +13,12 @@ type Server struct {
 	Echo *echo.Echo
 }
 
-func NewServer(pageService services.PageService) *Server {
+func NewServer(pageService services.PageService, stepService services.StepService) *Server {
 	e := echo.New()
 
 	handler := &handlers.DefaultHandler{
 		PageService: pageService,
+		StepService: stepService,
 	}
 
 	// Routes
@@ -35,8 +34,7 @@ func NewServer(pageService services.PageService) *Server {
 
 	e.GET("/roadmap/:id", func(c echo.Context) error {
 		id := c.Param("id")
-		// Assuming you have a function to convert the id to the corresponding step
-		step, err := getStepById(id)
+		step, err := stepService.GetStepById(id) // Use the stepService to get the step
 		if err != nil {
 			return c.JSON(http.StatusNotFound, map[string]string{"error": "step not found"})
 		}
@@ -48,20 +46,5 @@ func NewServer(pageService services.PageService) *Server {
 
 	return &Server{
 		Echo: e,
-	}
-}
-
-func getStepById(id string) (*components.Step, error) {
-	// Implement logic to retrieve the step based on the id
-	// This could involve querying a database or another form of storage
-	// For demonstration, returning hardcoded values
-	switch id {
-	case "group-0":
-		return &components.Step{Text: "Admit the Problem", Content: "Initial step...", PanelTitle: "Step 1"}, nil
-	case "group-1":
-		return &components.Step{Text: "Seek Help", Content: "Find support...", PanelTitle: "Step 2"}, nil
-	// Add more cases as needed
-	default:
-		return nil, errors.New("step not found")
 	}
 }

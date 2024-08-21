@@ -1,14 +1,17 @@
 package content
 
-import "github.com/jonesrussell/sober/ui/components"
+import (
+	"github.com/jonesrussell/sober/services"
+	"github.com/jonesrussell/sober/ui/components"
+)
 
-var step = &components.Step{
+var step = &services.Step{
 	Text:       "Admit the Problem",
 	Content:    "Content for Admit the Problem",
 	PanelTitle: "Admit the Problem",
 }
 
-templ Home(step *components.Step) {
+templ Home(step *services.Step) {
 	<h1 class="text-2xl font-bold">There's only one thing you have to change...<span class="text-3xl font-bold mt-4">Everything.</span></h1>
 	<div class="flex justify-center items-center w-full h-full">
 		@components.RoadmapSober()

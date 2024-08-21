@@ -6,9 +6,10 @@ import (
 	"io"
 
 	"github.com/a-h/templ"
+	"github.com/jonesrussell/sober/services"
 )
 
-func Drawer(step *Step) templ.Component {
+func Drawer(step *services.Step) templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, w io.Writer) error {
 		_, err := fmt.Fprintf(w, `
 <div class="relative z-10 hidden" id="slide-over" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">

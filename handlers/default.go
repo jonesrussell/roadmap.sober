@@ -14,6 +14,7 @@ import (
 
 type DefaultHandler struct {
 	PageService services.PageService
+	StepService services.StepService
 	BasePath    string
 }
 

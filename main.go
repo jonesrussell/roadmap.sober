@@ -37,7 +37,11 @@ func main() {
 		log.Fatalf("Failed to load configuration: %v", err)
 	}
 
+	// Create a new PageService
 	pageService := services.NewPageService()
+
+	// Create a new StepService
+	stepService := services.NewStepService()
 
 	if *generate {
 		staticSiteService := services.NewStaticSiteService(pageService)
@@ -46,7 +50,7 @@ func main() {
 	}
 
 	// Setup server
-	srv := setupServer(pageService, config)
+	srv := setupServer(pageService, *stepService, config) // Pass the StepService value here
 
 	// Start server
 	log.Printf("Starting server on port :8080 with generate flag: %v", *generate)
@@ -54,8 +58,8 @@ func main() {
 }
 
 // setupServer initializes and configures the server
-func setupServer(pageService services.PageService, config *Config) *server.Server {
-	srv := server.NewServer(pageService)
+func setupServer(pageService services.PageService, stepService services.StepService, config *Config) *server.Server { // Add StepService as a parameter
+	srv := server.NewServer(pageService, stepService)
 
 	// Custom 404 handler
 	srv.Echo.HTTPErrorHandler = func(err error, c echo.Context) {
