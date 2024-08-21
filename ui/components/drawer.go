@@ -43,14 +43,6 @@ func Drawer(step *Step) templ.Component {
         </div>
     </div>
 </div>
-<script>
-    const closePanelButton = document.getElementById('close-panel');
-    const slideOver = document.getElementById('slide-over');
-
-    closePanelButton.addEventListener('click', () => {
-        slideOver.classList.add('hidden');
-    });
-</script>
 `, step.PanelTitle, step.Content)
 		return err
 	})

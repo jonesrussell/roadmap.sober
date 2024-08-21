@@ -2,5 +2,6 @@ bin/
 node_modules/
 dist/
 *_templ.go
-public/
 tmp/
+
+public/main.css

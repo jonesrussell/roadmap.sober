@@ -70,7 +70,3 @@ func drawVerticalPath(canvas *svg.SVG, startX, startY, endX, endY int) {
 	path := fmt.Sprintf("M%d %d L%d %d", startX, startY, endX, endY)
 	canvas.Path(path, "fill:none;stroke:black")
 }
-
-// Button is assumed to be a function that returns the coordinates of a button
-// This function needs to be implemented elsewhere or its signature might need to be adjusted
-// func Button(canvas *svg.SVG, index int, text string, centerX int, id string) (int, int, int, int)
