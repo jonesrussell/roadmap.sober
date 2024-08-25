@@ -4,6 +4,7 @@ import (
 	"errors"
 	"net/http"
 
+	"github.com/jonesrussell/loggo"
 	"github.com/jonesrussell/sober/handlers"
 	"github.com/jonesrussell/sober/services"
 	"github.com/jonesrussell/sober/ui/components"
@@ -12,10 +13,12 @@ import (
 )
 
 type Server struct {
-	Echo *echo.Echo
+	Echo        *echo.Echo
+	Logger      loggo.LoggerInterface
+	PageService services.PageService
 }
 
-func NewServer(pageService services.PageService) *Server {
+func NewServer(pageService services.PageService, logger loggo.LoggerInterface) *Server {
 	e := echo.New()
 
 	handler := &handlers.DefaultHandler{
@@ -35,9 +38,9 @@ func NewServer(pageService services.PageService) *Server {
 
 	e.GET("/roadmap/:id", func(c echo.Context) error {
 		id := c.Param("id")
-		// Assuming you have a function to convert the id to the corresponding step
 		step, err := getStepById(id)
 		if err != nil {
+			logger.Error("Failed to get step by id", err)
 			return c.JSON(http.StatusNotFound, map[string]string{"error": "step not found"})
 		}
 		return c.JSON(http.StatusOK, step)
@@ -47,7 +50,9 @@ func NewServer(pageService services.PageService) *Server {
 	e.Static("/static", "public")
 
 	return &Server{
-		Echo: e,
+		Echo:        e,
+		Logger:      logger,
+		PageService: pageService,
 	}
 }
 

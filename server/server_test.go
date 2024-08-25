@@ -8,6 +8,7 @@ import (
 	"testing"
 
 	"github.com/a-h/templ"
+	"github.com/jonesrussell/loggo"
 	"github.com/jonesrussell/sober/services"
 	"github.com/stretchr/testify/assert"
 )
@@ -34,8 +35,9 @@ func (m *MockPageService) GetContentByID(id string) (string, error) {
 }
 
 func TestNewServer(t *testing.T) {
-	// Create a new server with the mock page service
-	s := NewServer(&MockPageService{})
+	// Create a new server with the mock page service and the mock logger
+	mockLogger := loggo.NewMockLogger()
+	s := NewServer(&MockPageService{}, mockLogger)
 
 	// Test the home route
 	req := httptest.NewRequest(http.MethodGet, "/", nil)

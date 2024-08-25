@@ -4,14 +4,19 @@ go 1.21
 
 require (
 	github.com/PuerkitoBio/goquery v1.8.1
-	github.com/a-h/templ v0.2.747
+	github.com/a-h/templ v0.2.771
+	github.com/jonesrussell/loggo v0.1.2
 	github.com/labstack/echo/v4 v4.12.0
 	github.com/spf13/afero v1.11.0
 	github.com/stretchr/testify v1.9.0
 	golang.org/x/image v0.19.0
 )
 
-require github.com/andybalholm/cascadia v1.3.1 // indirect
+require (
+	github.com/andybalholm/cascadia v1.3.1 // indirect
+	github.com/samber/lo v1.47.0 // indirect
+	github.com/samber/slog-multi v1.2.0 // indirect
+)
 
 require (
 	github.com/ajstarks/svgo v0.0.0-20211024235047-1546f124cd8b

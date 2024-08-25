@@ -3,9 +3,11 @@ package main
 import (
 	"flag"
 	"log"
+	"log/slog"
 	"net/http"
 	"os"
 
+	"github.com/jonesrussell/loggo"
 	"github.com/jonesrussell/sober/content"
 	"github.com/jonesrussell/sober/handlers"
 	"github.com/jonesrussell/sober/server"
@@ -31,10 +33,17 @@ func main() {
 	generate := flag.Bool("generate", false, "Generate static site")
 	flag.Parse()
 
+	// Create a new logger instance
+	logger, err := loggo.NewLogger("/tmp/foo.log", slog.LevelInfo)
+	if err != nil {
+		log.Fatalf("Failed to create logger: %v", err)
+	}
+
 	// Load configuration
 	config, err := loadConfig()
 	if err != nil {
-		log.Fatalf("Failed to load configuration: %v", err)
+		logger.Error("Failed to load configuration", err)
+		return
 	}
 
 	pageService := services.NewPageService()
@@ -46,16 +55,18 @@ func main() {
 	}
 
 	// Setup server
-	srv := setupServer(pageService, config)
+	srv := setupServer(pageService, config, logger) // Pass logger here
 
 	// Start server
-	log.Printf("Starting server on port :8080 with generate flag: %v", *generate)
-	log.Fatal(srv.Echo.Start(":8080"))
+	logger.Info("Starting server on port :8080 with generate flag", "generate", *generate)
+	if err := srv.Echo.Start(":8080"); err != nil {
+		logger.Error("Failed to start server", err)
+	}
 }
 
 // setupServer initializes and configures the server
-func setupServer(pageService services.PageService, config *Config) *server.Server {
-	srv := server.NewServer(pageService)
+func setupServer(pageService services.PageService, config *Config, logger loggo.LoggerInterface) *server.Server { // Add logger as a parameter here
+	srv := server.NewServer(pageService, logger) // Pass logger here
 
 	// Custom 404 handler
 	srv.Echo.HTTPErrorHandler = func(err error, c echo.Context) {
